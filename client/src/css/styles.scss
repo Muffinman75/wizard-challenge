@@ -1,0 +1,22 @@
+$primary-color: lightblue;
+
+.form-control {
+  overflow: auto;
+  margin: 0 auto;
+  width: 95%;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-bottom: 15px;
+  box-sizing: border-box;
+  padding: 10px;
+  background-color: lightgreen;
+}
+
+.form-label {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: left;
+  margin-bottom: 10px;
+  background-color: $primary-color;
+}
