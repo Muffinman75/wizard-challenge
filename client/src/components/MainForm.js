@@ -1,11 +1,11 @@
 import React, { Component } from "react";
-import Geocode from "react-geocode";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import "../css/styles.scss";
 
 import Step1 from "./Step1";
 import Step2 from "./Step2";
+
+import "../css/styles.scss";
 
 class MainForm extends Component {
   constructor(props) {
@@ -23,38 +23,10 @@ class MainForm extends Component {
     this._prev = this._prev.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.nowDateTime = this.nowDateTime.bind(this);
-    this.nowLocation = this.nowLocation.bind(this);
     this.notify = this.notify.bind(this);
   }
 
-  componentDidMount() {
-    //this.nowLocation();
-  }
-
-  notify = () => toast("Thank you for submitting!");
-
-  nowLocation = () => {
-    console.log("in location func", process.env.REACT_APP_GEOCODE_API_KEY);
-    Geocode.enableDebug();
-    Geocode.setApiKey("AIzaSyBvhx1d5zuYeMklIoWmw591duwD5gD0yXQ");
-    let crd = navigator.geolocation.getCurrentPosition(
-      position => position.coords
-    );
-    console.log("crd:", crd);
-    //console.log("geoPosition:", geoPosition);
-    Geocode.fromLatLng(crd.latitude, crd.longitude).then(
-      response => {
-        const address = response.results[0].formatted_address;
-        console.log(address);
-        this.setState({
-          location: address
-        });
-      },
-      error => {
-        console.error("location error:", error);
-      }
-    );
-  };
+  notify = () => toast.success("Thank you for submitting!");
 
   nowDateTime = () => {
     let dateTime = this.state.dateTime;
@@ -81,6 +53,7 @@ class MainForm extends Component {
       currentStep: currentStep
     });
   };
+
   _prev() {
     let currentStep = this.state.currentStep;
     // If the current step is 2 or 3, then subtract one on "previous" button click
@@ -108,18 +81,30 @@ class MainForm extends Component {
       feedback
     } = this.state;
 
-    fetch("/", {
+    let reqBody = {
+      title: title,
+      name: name,
+      dateOfBirth: dateOfBirth,
+      location: location,
+      dateTime: dateTime,
+      feedback: feedback
+    };
+
+    fetch("/user-form", {
       method: "post",
-      headers: { "Content-Type": "application/json" },
-      body: {
-        title: title,
-        name: name,
-        dateOfBirth: dateOfBirth,
-        location: location,
-        dateTime: dateTime,
-        feedback: feedback
-      }
-    });
+      body: JSON.stringify(reqBody),
+      headers: { "Content-Type": "application/json" }
+    })
+      .then(res => {
+        if (res.ok) {
+          return res.json();
+        } else {
+          throw new Error("Something went wrong with your fetch");
+        }
+      })
+      .then(json => {
+        console.log("client json:", json);
+      });
     this.notify();
     this.handleReset();
   };
@@ -139,7 +124,12 @@ class MainForm extends Component {
   previousButton() {
     let currentStep = this.state.currentStep;
     // If the current step is not 1, then render the "previous" button
-    if (currentStep !== 1) {
+    if (
+      currentStep !== 1 &&
+      this.state.location !== "" &&
+      this.state.dateTime !== "" &&
+      this.state.feedback !== ""
+    ) {
       return (
         <React.Fragment>
           <button
@@ -158,6 +148,16 @@ class MainForm extends Component {
           </button>
         </React.Fragment>
       );
+    } else if (currentStep !== 1) {
+      return (
+        <button
+          className="btn btn-secondary"
+          type="button"
+          onClick={this._prev}
+        >
+          Previous
+        </button>
+      );
     }
     // ...else return nothing
     return null;
@@ -166,8 +166,12 @@ class MainForm extends Component {
   nextButton() {
     let currentStep = this.state.currentStep;
     // If the current step is not 3, then render the "next" button
-    if (currentStep < 2) {
-      //this.nowDateTime();
+    if (
+      currentStep < 2 &&
+      this.state.title !== "" &&
+      this.state.name !== "" &&
+      this.state.dateOfBirth !== ""
+    ) {
       return (
         <button
           className="btn btn-primary float-right"
@@ -185,10 +189,10 @@ class MainForm extends Component {
   render() {
     return (
       <React.Fragment>
-        <h1 className="heading">Please fill in this form</h1>
+        <h1 className="heading">Please fill all fields to continue</h1>
         <p>Part {this.state.currentStep} </p>
 
-        <form onSubmit={this.handleSubmit}>
+        <form ref={this.step}>
           <Step1
             currentStep={this.state.currentStep}
             handleChange={this.handleChange}

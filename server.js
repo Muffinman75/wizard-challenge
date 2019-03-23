@@ -6,10 +6,10 @@ const jsonParser = bodyParser.json();
 
 let server;
 
-app.use("/", express.static("public/index.html"));
+app.use("/", express.static("/client/public/index.html"));
 
-// app.use(bodyParser.urlencoded({ extended: false }));
-// app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
+//app.use(bodyParser.json());
 
 function runServer() {
   const port = 8000;
@@ -42,7 +42,7 @@ if (require.main === module) {
   runServer().catch(err => console.error(err));
 }
 
-app.post("/submit-survey", jsonParser, (req, res) => {
+app.post("/user-form", jsonParser, (req, res) => {
   // ensure `name` and `budget` are in request body
   const requiredFields = [
     "title",
@@ -65,7 +65,7 @@ app.post("/submit-survey", jsonParser, (req, res) => {
     console.log(`Location: ${req.body.location}`);
     console.log(`Date & Time: ${req.body.dateTime}`);
     console.log(`Feedback: ${req.body.feedback}`);
-    res.status(201).json(req.body);
+    return res.status(201).json(req.body);
   }
 });
 

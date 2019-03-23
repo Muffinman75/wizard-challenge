@@ -21,6 +21,7 @@ class Step2 extends React.Component {
           placeholder="Enter location"
           value={this.props.location}
           onChange={this.props.handleChange}
+          required
         />
         <label className="form-label" htmlFor="dateTime">
           Today's Date & Time :
@@ -30,9 +31,9 @@ class Step2 extends React.Component {
           id="dateTime"
           name="dateTime"
           type="dateTime"
-          //placeholder="Enter dateTime"
           value={this.props.dateTime}
           onChange={this.props.handleChange}
+          required
         />
         <label className="form-label" htmlFor="feedback">
           Feedback :
@@ -45,6 +46,7 @@ class Step2 extends React.Component {
           placeholder="Enter feedback"
           value={this.props.feedback}
           onChange={this.props.handleChange}
+          required
         />
       </div>
     );
