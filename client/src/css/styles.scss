@@ -1,22 +1,135 @@
-$primary-color: lightblue;
+$screen-sm-min: 576px;
+
+$screen-md-min: 768px;
+
+$screen-lg-min: 992px;
+
+$screen-xl-min: 1200px;
+
+@mixin sm {
+  @media (min-width: #{$screen-sm-min}) {
+    @content;
+  }
+}
+
+@mixin md {
+  @media (min-width: #{$screen-md-min}) {
+    @content;
+  }
+}
+
+@mixin lg {
+  @media (min-width: #{$screen-lg-min}) {
+    @content;
+  }
+}
+
+@mixin xl {
+  @media (min-width: #{$screen-xl-min}) {
+    @content;
+  }
+}
+
+$first-colour: #eb9486;
+$second-colour: #abc8c0;
+$third-colour: #ffffff;
+$fourth-colour: #424b54;
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  background-color: $second-colour;
+}
+
+.heading {
+  font-family: "Josefin Sans", sans-serif;
+  max-width: 80%;
+  text-align: center;
+  margin-top: 100px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.smallText {
+  font-family: "Montserrat", sans-serif;
+  text-align: center;
+}
 
 .form-control {
+  font-family: "Montserrat", sans-serif;
   overflow: auto;
   margin: 0 auto;
   width: 95%;
+  @include sm {
+    width: 70%;
+  }
+  @include md {
+    width: 40%;
+  }
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  margin-bottom: 15px;
+  margin-bottom: 20px;
   box-sizing: border-box;
   padding: 10px;
-  background-color: lightgreen;
+  background-color: $third-colour;
+  border-radius: 5px;
+  border-style: solid 6px;
+  border-color: lightblue;
 }
 
 .form-label {
+  font-family: "Montserrat", sans-serif;
+  width: 95%;
+  @include sm {
+    width: 70%;
+  }
+  @include md {
+    width: 40%;
+  }
   display: flex;
   flex-wrap: wrap;
   justify-content: left;
   margin-bottom: 10px;
-  background-color: $primary-color;
+  margin-left: auto;
+  margin-right: auto;
+  //background-color: $primary-color;
+}
+
+.button-container {
+  width: 95%;
+  @include sm {
+    width: 70%;
+  }
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.btn {
+  height: 50px;
+  width: 120px;
+  border-radius: 5px;
+  margin-top: 20px;
+}
+.btn:hover {
+  cursor: pointer;
+  background-color: $first-colour;
+  -webkit-transition: all 0.5s ease-in;
+  -moz-transition: all 0.5s ease-in;
+  -o-transition: all 0.5s ease-in;
+  transition: all 0.5s ease-in;
+  -webkit-transition: all 0.5s ease-out;
+  -moz-transition: all 0.5s ease-out;
+  -o-transition: all 0.5s ease-out;
+  transition: all 0.5s ease-out;
+}
+
+.btn-primary {
+  display: inline;
+  float: left;
 }

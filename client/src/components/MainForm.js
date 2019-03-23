@@ -37,7 +37,8 @@ class MainForm extends Component {
       (today.getMonth() + 1) +
       "-" +
       today.getFullYear();
-    let time = today.getHours() + ":" + today.getMinutes();
+    let minutes = (today.getMinutes() < 10 ? "0" : "") + today.getMinutes();
+    let time = today.getHours() + ":" + minutes;
     dateTime = date + " / " + time;
     console.log("dateTime:", dateTime);
     this.setState({
@@ -173,11 +174,7 @@ class MainForm extends Component {
       this.state.dateOfBirth !== ""
     ) {
       return (
-        <button
-          className="btn btn-primary float-right"
-          type="button"
-          onClick={this._next}
-        >
+        <button className="btn btn-primary" type="button" onClick={this._next}>
           Next
         </button>
       );
@@ -190,7 +187,7 @@ class MainForm extends Component {
     return (
       <React.Fragment>
         <h1 className="heading">Please fill all fields to continue</h1>
-        <p>Part {this.state.currentStep} </p>
+        <p className="smallText">Part {this.state.currentStep} </p>
 
         <form ref={this.step}>
           <Step1
@@ -207,9 +204,11 @@ class MainForm extends Component {
             dateTime={this.state.dateTime}
             feedback={this.state.feedback}
           />
-          {this.previousButton()}
-          {this.nextButton()}
-          <ToastContainer />
+          <div className="button-container">
+            {this.previousButton()}
+            {this.nextButton()}
+            <ToastContainer position="bottom-right" />
+          </div>
         </form>
       </React.Fragment>
     );

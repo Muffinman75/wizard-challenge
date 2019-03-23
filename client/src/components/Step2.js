@@ -24,7 +24,7 @@ class Step2 extends React.Component {
           required
         />
         <label className="form-label" htmlFor="dateTime">
-          Today's Date & Time :
+          Today's Date / Time :
         </label>
         <input
           className="form-control"
@@ -36,7 +36,7 @@ class Step2 extends React.Component {
           required
         />
         <label className="form-label" htmlFor="feedback">
-          Feedback :
+          User Feedback :
         </label>
         <textarea
           className="form-control"
