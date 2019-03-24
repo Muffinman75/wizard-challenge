@@ -30,7 +30,7 @@ $screen-xl-min: 1200px;
   }
 }
 
-$first-colour: #eb9486;
+$first-colour: #f4511e;
 $second-colour: #abc8c0;
 $third-colour: #ffffff;
 $fourth-colour: #424b54;
@@ -103,6 +103,9 @@ html {
   @include sm {
     width: 70%;
   }
+  @include md {
+    width: 40%;
+  }
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
@@ -115,9 +118,12 @@ html {
   width: 120px;
   border-radius: 5px;
   margin-top: 20px;
+  opacity: 0.6;
+  transition: 0.3s;
 }
 .btn:hover {
   cursor: pointer;
+  color: $third-colour;
   background-color: $first-colour;
   -webkit-transition: all 0.5s ease-in;
   -moz-transition: all 0.5s ease-in;
@@ -127,9 +133,14 @@ html {
   -moz-transition: all 0.5s ease-out;
   -o-transition: all 0.5s ease-out;
   transition: all 0.5s ease-out;
+  opacity: 1;
 }
 
-.btn-primary {
-  display: inline;
-  float: left;
+.btn-primary,
+.btn-submit {
+  margin-left: auto;
+}
+
+.btn-secondary {
+  margin-right: auto;
 }

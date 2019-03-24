@@ -40,16 +40,8 @@ app.post("/user-form", jsonParser, (req, res) => {
 });
 
 // app.get("/", (req, res) => {
-//   res.sendFile(path.join("/public/client/index.html"));
+//   res.sendFile(path.join(__dirname, "/client/build"));
 // });
-//
-// if (process.env.NODE_ENV === "production") {
-//   app.use(express.static("client/build"));
-// }
-
-app.get("/", (req, res) => {
-  res.sendFile("index.html");
-});
 
 function runServer() {
   const port = 8000;

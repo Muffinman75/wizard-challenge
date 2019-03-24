@@ -26,7 +26,7 @@ class MainForm extends Component {
     this.notify = this.notify.bind(this);
   }
 
-  notify = () => toast.success("Thank you for submitting!");
+  notify = () => toast.success("Details Received! Thanks!");
 
   nowDateTime = () => {
     let dateTime = this.state.dateTime;
@@ -186,7 +186,7 @@ class MainForm extends Component {
   render() {
     return (
       <React.Fragment>
-        <h1 className="heading">Please fill all fields to continue</h1>
+        <h1 className="heading">Please fill in all fields to continue</h1>
         <p className="smallText">Part {this.state.currentStep} </p>
 
         <form ref={this.step}>
