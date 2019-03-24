@@ -4,10 +4,10 @@ import "../css/styles.scss";
 class Step1 extends React.Component {
   render() {
     if (this.props.currentStep !== 1) {
-      // Prop: The current step
+      // Determines which step to render
       return null;
     }
-    // The markup for the Step 1 UI
+    // The markup for Step 1
     return (
       <div className="form-group">
         <label className="form-label" htmlFor="title">
@@ -19,8 +19,8 @@ class Step1 extends React.Component {
           name="title"
           type="text"
           placeholder="Enter title"
-          value={this.props.title} // Prop: The email input data
-          onChange={this.props.handleChange} // Prop: Puts data into state
+          value={this.props.title} // Prop from parent component
+          onChange={this.props.handleChange} // Prop from parent component
           required
         />
         <label className="form-label" htmlFor="name">
@@ -32,8 +32,8 @@ class Step1 extends React.Component {
           name="name"
           type="text"
           placeholder="Enter name"
-          value={this.props.name} // Prop: The email input data
-          onChange={this.props.handleChange} // Prop: Puts data into state
+          value={this.props.name}
+          onChange={this.props.handleChange}
           required
         />
         <label className="form-label" htmlFor="dateOfBirth">
@@ -45,8 +45,8 @@ class Step1 extends React.Component {
           name="dateOfBirth"
           type="date"
           placeholder="Enter date of birth"
-          value={this.props.dateOfBirth} // Prop: The email input data
-          onChange={this.props.handleChange} // Prop: Puts data into state
+          value={this.props.dateOfBirth}
+          onChange={this.props.handleChange}
           required
         />
       </div>

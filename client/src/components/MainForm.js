@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
+// Import steps 1 & 2 to be the children of MainForm
 import Step1 from "./Step1";
 import Step2 from "./Step2";
 
@@ -9,6 +10,7 @@ import "../css/styles.scss";
 
 class MainForm extends Component {
   constructor(props) {
+    // Initialize state for this component here
     super(props);
     this.state = {
       currentStep: 1,
@@ -19,17 +21,18 @@ class MainForm extends Component {
       dateTime: "",
       feedback: ""
     };
-    this._next = this._next.bind(this);
+    this._next = this._next.bind(this); // Function bindings for each instance of the function
     this._prev = this._prev.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.nowDateTime = this.nowDateTime.bind(this);
     this.notify = this.notify.bind(this);
   }
 
-  notify = () => toast.success("Details Received! Thanks!");
+  notify = () => toast.success("Details Received! Thanks!"); // Thank you message for the ToastContainer
 
   nowDateTime = () => {
-    let dateTime = this.state.dateTime;
+    // Function to get current time and date and
+    let dateTime = this.state.dateTime; // set it to state
     let today = new Date();
     let date =
       today.getDate() +
@@ -46,7 +49,8 @@ class MainForm extends Component {
     });
   };
 
-  _next = () => {
+  next = () => {
+    // Function invoked on 'next' button clicked, increments currentStep in state
     this.nowDateTime();
     let currentStep = this.state.currentStep;
     currentStep = currentStep >= 1 ? 2 : currentStep + 1;
@@ -55,9 +59,9 @@ class MainForm extends Component {
     });
   };
 
-  _prev() {
+  prev() {
+    // Function invoked on 'previous' button clicked, decrements currentStep in state
     let currentStep = this.state.currentStep;
-    // If the current step is 2 or 3, then subtract one on "previous" button click
     currentStep = currentStep <= 1 ? 1 : currentStep - 1;
     this.setState({
       currentStep: currentStep
@@ -65,6 +69,7 @@ class MainForm extends Component {
   }
 
   handleChange = event => {
+    // Changes state when something is typed in the inputs of the children step1 and step2
     const { name, value } = event.target;
     this.setState({
       [name]: value
@@ -72,7 +77,8 @@ class MainForm extends Component {
   };
 
   handleSubmit = event => {
-    event.preventDefault();
+    // Function which sends a post request to the server and calls the functions for resetting the
+    event.preventDefault(); // form and rendering the thank you message
     const {
       title,
       name,
@@ -111,6 +117,7 @@ class MainForm extends Component {
   };
 
   handleReset = event => {
+    // Function to reset state on form submission
     this.setState({
       currentStep: 1,
       title: "",
@@ -123,8 +130,8 @@ class MainForm extends Component {
   };
 
   previousButton() {
-    let currentStep = this.state.currentStep;
-    // If the current step is not 1, then render the "previous" button
+    // If the current step is 2 AND Step 2 fields are filled, then render the 'previous' and 'submit'
+    let currentStep = this.state.currentStep; // buttons
     if (
       currentStep !== 1 &&
       this.state.location !== "" &&
@@ -136,7 +143,7 @@ class MainForm extends Component {
           <button
             className="btn btn-secondary"
             type="button"
-            onClick={this._prev}
+            onClick={this.prev}
           >
             Previous
           </button>
@@ -151,11 +158,7 @@ class MainForm extends Component {
       );
     } else if (currentStep !== 1) {
       return (
-        <button
-          className="btn btn-secondary"
-          type="button"
-          onClick={this._prev}
-        >
+        <button className="btn btn-secondary" type="button" onClick={this.prev}>
           Previous
         </button>
       );
@@ -165,8 +168,8 @@ class MainForm extends Component {
   }
 
   nextButton() {
+    // If the current step is 1 AND filled in, render the 'next' button
     let currentStep = this.state.currentStep;
-    // If the current step is not 3, then render the "next" button
     if (
       currentStep < 2 &&
       this.state.title !== "" &&
@@ -174,16 +177,16 @@ class MainForm extends Component {
       this.state.dateOfBirth !== ""
     ) {
       return (
-        <button className="btn btn-primary" type="button" onClick={this._next}>
+        <button className="btn btn-primary" type="button" onClick={this.next}>
           Next
         </button>
       );
     }
-    // ...else render nothing
     return null;
   }
 
   render() {
+    // Markup for MainForm
     return (
       <React.Fragment>
         <h1 className="heading">Please fill in all fields to continue</h1>
@@ -191,7 +194,7 @@ class MainForm extends Component {
 
         <form ref={this.step}>
           <Step1
-            currentStep={this.state.currentStep}
+            currentStep={this.state.currentStep} // Props to send to the child components
             handleChange={this.handleChange}
             title={this.state.title}
             name={this.state.name}

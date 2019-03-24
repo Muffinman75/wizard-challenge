@@ -1,3 +1,4 @@
+// require the tools needed to build this server
 const express = require("express");
 const bodyParser = require("body-parser");
 const path = require("path");
@@ -7,19 +8,18 @@ const jsonParser = bodyParser.json();
 
 let server;
 
-//app.use(express.static("build"));
-
 app.use(express.static(path.join(__dirname, "/client/build")));
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
+// Serve the index.html located in the build folder from here
 app.get("/", (req, res) => {
-  res.sendFile(path.join(__dirname, "/client"));
+  res.sendFile(path.join(__dirname, "/client/build/index.html"));
 });
 
+// POST endpoint for the form which prints to the console
 app.post("/user-form", jsonParser, (req, res) => {
-  // ensure `name` and `budget` are in request body
   const requiredFields = [
     "title",
     "name",
@@ -45,6 +45,7 @@ app.post("/user-form", jsonParser, (req, res) => {
   }
 });
 
+// Start and close the server
 function runServer() {
   const port = 3001;
   return new Promise((resolve, reject) => {

@@ -10,8 +10,8 @@ To run this 2 step form on your machine:
 
 2.  From the command line, cd into the containing folder, staying at the same level as the server.js file
 
-3.  Now type 'npm i'
+3.  Now type 'npm i' to install
 
-4.  Now type 'npm start'
+4.  Now type 'npm start' to run
 
 The client was made using React, the minified React bundle is served by a Node/Express server.

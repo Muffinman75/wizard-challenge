@@ -4,10 +4,10 @@ import "../css/styles.scss";
 class Step2 extends React.Component {
   render() {
     if (this.props.currentStep !== 2) {
-      // Prop: The current step
+      // Determines which step to render
       return null;
     }
-
+    // The markup for Step 1
     return (
       <div className="form-group">
         <label className="form-label" htmlFor="location">
@@ -19,8 +19,8 @@ class Step2 extends React.Component {
           name="location"
           type="text"
           placeholder="Enter location"
-          value={this.props.location}
-          onChange={this.props.handleChange}
+          value={this.props.location} // Prop from parent component
+          onChange={this.props.handleChange} // Prop from parent component
           required
         />
         <label className="form-label" htmlFor="dateTime">
