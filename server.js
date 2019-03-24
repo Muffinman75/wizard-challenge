@@ -7,10 +7,16 @@ const jsonParser = bodyParser.json();
 
 let server;
 
-app.use(express.static("public"));
+//app.use(express.static("build"));
+
+app.use(express.static(path.join(__dirname, "/client/build")));
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
+
+app.get("/", (req, res) => {
+  res.sendFile(path.join(__dirname, "/client"));
+});
 
 app.post("/user-form", jsonParser, (req, res) => {
   // ensure `name` and `budget` are in request body
@@ -39,12 +45,8 @@ app.post("/user-form", jsonParser, (req, res) => {
   }
 });
 
-// app.get("/", (req, res) => {
-//   res.sendFile(path.join(__dirname, "/client/build"));
-// });
-
 function runServer() {
-  const port = 8000;
+  const port = 3001;
   return new Promise((resolve, reject) => {
     server = app
       .listen(port, () => {
@@ -73,5 +75,3 @@ function closeServer() {
 if (require.main === module) {
   runServer().catch(err => console.error(err));
 }
-
-module.exports = { app, runServer, closeServer };

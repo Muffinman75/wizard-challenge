@@ -4,9 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "\"concurrently\" \"npm run server\" \"npm run client\"",
+    "start": "npm run server",
     "client": "node start-client.js",
-    "server": "nodemon --exec babel-node server.js",
+    "server": "babel-node server.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
