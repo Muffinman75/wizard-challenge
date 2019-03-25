@@ -21,8 +21,8 @@ class MainForm extends Component {
       dateTime: "",
       feedback: ""
     };
-    this._next = this._next.bind(this); // Function bindings for each instance of the function
-    this._prev = this._prev.bind(this);
+    this.next = this.next.bind(this); // Function bindings for each instance of the function
+    this.prev = this.prev.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.nowDateTime = this.nowDateTime.bind(this);
     this.notify = this.notify.bind(this);
