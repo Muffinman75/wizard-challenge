@@ -43,7 +43,6 @@ class MainForm extends Component {
     let minutes = (today.getMinutes() < 10 ? "0" : "") + today.getMinutes();
     let time = today.getHours() + ":" + minutes;
     dateTime = date + " / " + time;
-    console.log("dateTime:", dateTime);
     this.setState({
       dateTime: dateTime
     });
@@ -77,7 +76,7 @@ class MainForm extends Component {
   };
 
   handleSubmit = event => {
-    // Function which sends a post request to the server and calls the functions for resetting the
+    // Function which sends a post request with user details to the server and calls the functions for resetting the
     event.preventDefault(); // form and rendering the thank you message
     const {
       title,
@@ -101,17 +100,13 @@ class MainForm extends Component {
       method: "post",
       body: JSON.stringify(reqBody),
       headers: { "Content-Type": "application/json" }
-    })
-      .then(res => {
-        if (res.ok) {
-          return res.json();
-        } else {
-          throw new Error("Something went wrong with your fetch");
-        }
-      })
-      .then(json => {
-        console.log("client json:", json);
-      });
+    }).then(res => {
+      if (res.ok) {
+        return res.json();
+      } else {
+        throw new Error("Something went wrong with your fetch");
+      }
+    });
     this.notify();
     this.handleReset();
   };
