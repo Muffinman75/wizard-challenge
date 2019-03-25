@@ -14,6 +14,6 @@ To run this 2 step form on your machine:
 
 4.  Now type 'npm start' to run
 
-5.  Now open a browser window and type the URL 'localhost:5000'
+5.  Now open a browser window and type the URL 'localhost:3001'
 
 The client was made using React, the React code is bundled and minified by webpack and served by a Node/Express server.
